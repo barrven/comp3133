@@ -2,7 +2,6 @@ const csv = require('csv-parser');
 const fs = require('fs');
 
 //delete files if they exist
-
 let files = ['canada.txt', 'usa.txt'];
 files.forEach(file =>{
     if(fs.existsSync(file)){
