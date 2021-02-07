@@ -9,7 +9,8 @@ app.use(express.json()); // Make sure it comes back as json
 mongoose.connect('mongodb+srv://barri:test@cluster0.rpou1.mongodb.net/gbc_fullstack?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useCreateIndex: true
 })
 .then(() => {
     console.log("Successfully connected to the database mongoDB Atlas Server")

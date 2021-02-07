@@ -2,14 +2,26 @@ const express = require('express');
 const RestaurantModel = require('../models/Restaurant.js');
 const app = express();
 
-app.get('/restaurants', async (req, res) => {
-    const restaurant = await RestaurantModel.find({});
-    //Sorting
+//Sorting
     //use "asc", "desc", "ascending", "descending", 1, or -1
     //const employees = await employeeModel.find({}).sort({'firstname': -1});
 
     //Select Specific Column
     //const employees = await employeeModel.find({}).select("firstname lastname salary");
+
+
+//select all columns or select some colums based on if a query string is present
+app.get('/restaurants', async (req, res) => {
+    let restaurant
+    if(req.query.sortBy){
+        restaurant = await RestaurantModel
+            .find({})
+            .select("cuisine name city restaurant_id")
+            .sort({ restaurant_id: req.query.sortBy })
+    }
+    else{
+        restaurant = await RestaurantModel.find({});
+    }
 
     try {
         res.send(restaurant);
@@ -19,6 +31,22 @@ app.get('/restaurants', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+// Select a given cuisine type (type must be capitalized to match the existing data scheme)
+app.get('/restaurants/cuisine/:type', async (req, res) => {
+    const restaurant = await RestaurantModel.find({ cuisine: req.params.type});
+    try {
+        res.send(restaurant);
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
+
+
+
 
 //Read By ID
 //http://localhost:8081/employee?id=60174acfcde1ab2e78a3a9b0
@@ -205,6 +233,9 @@ app.get('/employee/delete', async (req, res) => {
         res.status(500).send(err)
     }
 })
+
+
+
 module.exports = app
 
 //Insert Multiple Records

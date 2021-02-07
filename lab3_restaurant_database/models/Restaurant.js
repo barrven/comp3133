@@ -5,38 +5,37 @@ const RestaurantSchema = new mongoose.Schema(
         address:{     
             building: {
                 type: String,
-                required: [true, "Please enter the address number"],
-                trim: true,
+                // required: [true, "Please enter the address number"],
+                // trim: true,
             },
             street: {
                 type: String,
-                required: [true, "Please enter the street name"],
-                trim: true,
-                lowercase: true
+                // required: [true, "Please enter the street name"],
+                // trim: true,
+                // lowercase: true
             },
             zipcode: {
                 type: String,
-                required: [true, "Please enter the zipcode"],
-                trim: true
+                // required: [true, "Please enter the zipcode"],
+                // trim: true
             }
         },
         city: {
             type: String,
-            required: [true, "Please enter the city"],
-            lowercase: true,
-            trim: true,
+            // required: [true, "Please enter the city"],
+            // lowercase: true,
+            // trim: true,
         },
         cuisine: {
             type: String,
-            required: [true, "Please enter the city"],
-            lowercase: true,
-            trim: true,
+            // required: [true, "Please enter the cuisine"],
+            // trim: true,
         },
         name: {
             type: String,
-            required: [true, "Please enter the name"],
-            lowercase: true,
-            trim: true,
+            // required: [true, "Please enter the name"],
+            // lowercase: true,
+            // trim: true,
         },
         restaurant_id: {
             type: String,
