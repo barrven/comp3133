@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const restaurantRouter = require('./routes/restaurantRouter.js');
 
+const restaurantRouter = require('./routes/restaurantRouter.js');
 const app = express();
 app.use(express.json()); // Make sure it comes back as json
 
-//TODO - Replace you Connection String here
-mongoose.connect('mongodb+srv://barri:test@cluster0.rpou1.mongodb.net/gbc_fullstack?retryWrites=true&w=majority', {
+const DB_URL = 'mongodb+srv://comp3133_prof:tQ3S5Xyckqi5eyq2@cluster0.rpou1.mongodb.net/gbc_fullstack?retryWrites=true&w=majority'
+
+mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

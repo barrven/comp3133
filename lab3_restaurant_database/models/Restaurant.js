@@ -54,10 +54,10 @@ const RestaurantSchema = new mongoose.Schema(
     {collection: 'Restaurants'} //set the name of the collection here to avoid mongoose autonaming
 )
 
-RestaurantSchema.post('init', (doc) => console.log(`item number ${doc._id} was initialized`))
-RestaurantSchema.post('validate', (doc) => console.log(`item number ${doc._id} was validated`))
-RestaurantSchema.post('saved', (doc) => console.log(`item number ${doc._id} was saved`))
-RestaurantSchema.post('remove', (doc) => console.log(`item number ${doc._id} was removed`))
+// RestaurantSchema.post('init', (doc) => console.log(`item number ${doc._id} was initialized`))
+// RestaurantSchema.post('validate', (doc) => console.log(`item number ${doc._id} was validated`))
+// RestaurantSchema.post('saved', (doc) => console.log(`item number ${doc._id} was saved`))
+// RestaurantSchema.post('remove', (doc) => console.log(`item number ${doc._id} was removed`))
 
 
 const Restaurants = mongoose.model("Restaurants", RestaurantSchema)
