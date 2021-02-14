@@ -1,0 +1,19 @@
+.width-100{
+    width:100%;
+}
+
+#messages{
+    margin: 120px 10% 120px 10%;
+}
+
+.height-68{
+    height:68px
+}
+
+.plaintext{
+    text-decoration: none;
+}
+
+.plaintext:hover{
+    text-decoration: none;
+}
