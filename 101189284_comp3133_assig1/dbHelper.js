@@ -1,8 +1,35 @@
 const mongoose = require('mongoose')
 
+//blank models because schema is already taken care of with graphql
 const Hotel = mongoose.model("Hotels", new mongoose.Schema({}, { strict: false }))
 const Booking = mongoose.model("Bookings", new mongoose.Schema({}, { strict: false }))
-const User = mongoose.model("Users", new mongoose.Schema({}, { strict: false }))
+
+//adding unique constraints and validation to user through mongoose model
+const User = mongoose.model("Users", new mongoose.Schema({
+    user_id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    username:{
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate(value) {
+            var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            return emailRegex.test(value);
+        }
+    }
+}))
 
 
 //wrap some methods in a promise in order to get the correct response
@@ -57,6 +84,9 @@ const bookHotel = async (args) => {
 
 //helper function to be wrapped in wrapFunction
 function addBookingToDb(args, onSuccess, onError){
+    let d = new Date()
+    args.booking_date = d.getDate() +'-'+ (d.getMonth()+1)+'-'+ d.getFullYear()
+    
     const booking = new Booking(args)
     booking.save((err, success) => {
         if (err) {
@@ -99,7 +129,7 @@ function addUserToDb(args, onSuccess, onError){
             onError(err)
         }
         else {
-            console.log(success)
+            console.log("Created a user")
             onSuccess(success)
         }
     })

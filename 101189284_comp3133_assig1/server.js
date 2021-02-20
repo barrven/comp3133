@@ -28,9 +28,9 @@ var schema = buildSchema(`
         list_bookings: [Booking]
     },
     type Mutation {
-        create_hotel(hotel_id: Int!, hotel_name: String!, city: String): Hotel
-        create_booking(hotel_id: Int!, user_id: Int!): Booking
-        create_profile(user_id: Int!, username: String!): User
+        create_hotel(hotel_id: Int!, hotel_name: String!, street:String, city: String, postal_code: String, price: Float, email: String): Hotel
+        create_booking(hotel_id: Int!, user_id: Int!, booking_start: String, booking_end: String): Booking
+        create_profile(user_id: Int!, username: String!, password: String!, email: String!): User
     },
     type Hotel {
         hotel_id: Int
@@ -39,8 +39,7 @@ var schema = buildSchema(`
         city: String
         postal_code: String
         price: Float
-        email: String
-        user_id: Int
+        email: String   
     },
     type Booking {
         hotel_id: Int
@@ -50,10 +49,10 @@ var schema = buildSchema(`
         user_id: Int
     },
     type User {
-        user_id: Int
-        username: String
-        password: String
-        email: String
+        user_id: Int!
+        username: String!
+        password: String!
+        email: String!
     }
 `);
 
