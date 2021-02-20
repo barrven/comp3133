@@ -1,21 +1,34 @@
 var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
+const mongoose = require('mongoose')
+const dbHelper = require('./dbHelper')
 
-const functions = require('./functions')
+const DB_URL = 'mongodb+srv://barri:test@cluster0.rpou1.mongodb.net/Hotel_System?retryWrites=true&w=majority'
 
-functions.createCollection()
+mongoose.connect(DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+})
+    .then(() => {
+        console.log("Successfully connected to the database mongoDB Atlas Server")
+    })
+    .catch(err => {
+        console.log('Could not connect to the database. Exiting now...', err)
+        process.exit()
+    })
 
 //gql schema
 var schema = buildSchema(`
     type Query {
         list_hotels: [Hotel]
-        search_hotel_name(name: String): [Hotel]
-        search_hotel_city(city: String): [Hotel]
+        search_hotel(hotel_name: String, city: String): [Hotel]
         list_bookings: [Booking]
     },
     type Mutation {
-        create_hotel(hotel_id: Int!, hotel_name: String!): Hotel
+        create_hotel(hotel_id: Int!, hotel_name: String!, city: String): Hotel
         create_booking(hotel_id: Int!, user_id: Int!): Booking
         create_profile(user_id: Int!, username: String!): User
     },
@@ -44,16 +57,14 @@ var schema = buildSchema(`
     }
 `);
 
-
 //Declare Resolver
 var root = {
-    create_hotel: functions.createHotel, //mutation
-    list_hotels: functions.listAllHotels, //query
-    create_booking: functions.bookHotel, //mutation
-    search_hotel_city: functions.searchHotelByCity, //query
-    search_hotel_name: functions.searchHotelByName, //query
-    list_bookings: functions.listAllBookings, //query
-    create_profile: functions.createUserProfile //mutation
+    create_hotel: dbHelper.createHotel, //mutation
+    list_hotels: dbHelper.listAllHotels, //query
+    create_booking: dbHelper.bookHotel, //mutation
+    search_hotel: dbHelper.searchHotel, //query
+    list_bookings: dbHelper.listAllBookings, //query
+    create_profile: dbHelper.createUserProfile //mutation
 };
 
 var app = express();
