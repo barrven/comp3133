@@ -23,20 +23,25 @@
 
 
 <body>
-    <div class="container-fluid fixed-top text-center bg-dark text-white p-2">
-        <h1><a href="index.html" class="plaintext text-white">Socket Chat</a></h1>
+    <div class="navbar fixed-top bg-dark text-white p-2">
+        <div class="nav-item mx-auto"><h1>Socket Chat</h1></div>
+        <div class="nav-item "><a href="index.html" class="btn btn-danger">&nbsp;Exit&nbsp;</a></div>
     </div>
     
     <div class="container-fluid width-100">
         <div id="messages"></div>
         
-        <div class="row fixed-bottom p-3 height-68 bg-dark">
-            <div class="col-8">
-                <input type="text" id="message" class="form-control" placeholder="Your Message Here"></input>
+        <div class="fixed-bottom p-3 height-68 bg-dark">
+            <div class="row" id="msg-panel">
+                
+                <div class="col-9 pl-0 pr-2">
+                    <input type="text" id="message" class="form-control" placeholder="Your Message Here"></input>
+                </div>
+                <div class="col p-0">
+                    <button id="send" class="btn btn-primary width-100">Send</button>
+                </div>
             </div>
-            <div class="col">
-                <button id="send" class="btn btn-primary width-100">Send</button>
-            </div>
+            
         </div>
     </div>
 
@@ -55,7 +60,7 @@
 
         var socket = io();
         socket.on("connect", () => {
-            console.log(socket.id);
+            //console.log(socket.id);
         });
 
         $(() => {

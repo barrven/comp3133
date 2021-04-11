@@ -1,8 +1,13 @@
 const mongoose = require('mongoose')
 
 //blank models because schema is already taken care of with graphql
-const Hotel = mongoose.model("Hotels", new mongoose.Schema({}, { strict: false }))
-const Booking = mongoose.model("Bookings", new mongoose.Schema({}, { strict: false }))
+const Hotel = mongoose.model("Hotels", new mongoose.Schema({
+
+}, { strict: false }))
+
+const Booking = mongoose.model("Bookings", new mongoose.Schema({
+
+}, { strict: false }))
 
 //adding unique constraints and validation to user through mongoose model
 const User = mongoose.model("Users", new mongoose.Schema({
